@@ -1,0 +1,1355 @@
+{
+	"info": {
+		"_postman_id": "a2d34075-8ac6-4a14-b524-6c7ef2ba48f4",
+		"name": "Naver_Searchblog",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "200 Case",
+			"item": [
+				{
+					"name": "200_default",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// 200 status default\r",
+									"\r",
+									"pm.test(\"Status Code\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"response should be okay to process\", function () {\r",
+									"    pm.response.to.not.be.error;\r",
+									"    pm.response.to.not.have.jsonBody(\"error\");\r",
+									"});\r",
+									"\r",
+									"const jsonData = pm.response.json();\r",
+									"pm.test(\"Test data type of the response\", () => {\r",
+									"  pm.expect(jsonData).to.be.an(\"object\");\r",
+									"  pm.expect(jsonData.lastBuildDate).to.be.a(\"string\");\r",
+									"  pm.expect(jsonData.total).to.be.a(\"number\");\r",
+									"  pm.expect(jsonData.start).to.be.a(\"number\");\r",
+									"  pm.expect(jsonData.display).to.be.a(\"number\");\r",
+									"  pm.expect(jsonData.items).to.be.a(\"array\");\r",
+									"    jsonData.items.forEach((item) => {\r",
+									"        pm.expect(item[\"title\"]).to.be.a(\"string\");\r",
+									"        pm.expect(item[\"link\"]).to.be.a(\"string\");\r",
+									"        pm.expect(item[\"description\"]).to.be.a(\"string\");\r",
+									"        pm.expect(item[\"bloggername\"]).to.be.a(\"string\");\r",
+									"        pm.expect(item[\"bloggerlink\"]).to.be.a(\"string\");\r",
+									"        pm.expect(item[\"postdate\"]).to.be.a(\"string\");\r",
+									"        //console.log(item)\r",
+									"    })\r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded; charset=UTF-8",
+								"type": "text"
+							},
+							{
+								"key": "X-Naver-Client-Id",
+								"value": "slUen2osFZA3taBCw6BZ",
+								"description": "애플리케이션 등록 시 발급받은 client id 값",
+								"type": "text"
+							},
+							{
+								"key": "X-Naver-Client-Secret",
+								"value": "4XEBgLAnRF",
+								"description": "애플리케이션 등록 시 발급받은 client secret 값",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "https://openapi.naver.com/v1/search/blog.json?query=christmas&display=10&start=1&sort=sim",
+							"protocol": "https",
+							"host": [
+								"openapi",
+								"naver",
+								"com"
+							],
+							"path": [
+								"v1",
+								"search",
+								"blog.json"
+							],
+							"query": [
+								{
+									"key": "query",
+									"value": "christmas",
+									"description": "required"
+								},
+								{
+									"key": "display",
+									"value": "10",
+									"description": "max 100"
+								},
+								{
+									"key": "start",
+									"value": "1",
+									"description": "max 1000"
+								},
+								{
+									"key": "sort",
+									"value": "sim"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "200_Optional_display_remove",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status test\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded; charset=UTF-8",
+								"type": "text"
+							},
+							{
+								"key": "X-Naver-Client-Id",
+								"value": "slUen2osFZA3taBCw6BZ",
+								"type": "text"
+							},
+							{
+								"key": "X-Naver-Client-Secret",
+								"value": "4XEBgLAnRF",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "https://openapi.naver.com/v1/search/blog.json?query=christmas&start=1&sort=sim",
+							"protocol": "https",
+							"host": [
+								"openapi",
+								"naver",
+								"com"
+							],
+							"path": [
+								"v1",
+								"search",
+								"blog.json"
+							],
+							"query": [
+								{
+									"key": "query",
+									"value": "christmas",
+									"description": "required value"
+								},
+								{
+									"key": "start",
+									"value": "1"
+								},
+								{
+									"key": "sort",
+									"value": "sim"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "200_Optional_start_remove",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status test\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded; charset=UTF-8",
+								"type": "text"
+							},
+							{
+								"key": "X-Naver-Client-Id",
+								"value": "slUen2osFZA3taBCw6BZ",
+								"type": "text"
+							},
+							{
+								"key": "X-Naver-Client-Secret",
+								"value": "4XEBgLAnRF",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "https://openapi.naver.com/v1/search/blog.json?query=christmas&display=10&sort=sim",
+							"protocol": "https",
+							"host": [
+								"openapi",
+								"naver",
+								"com"
+							],
+							"path": [
+								"v1",
+								"search",
+								"blog.json"
+							],
+							"query": [
+								{
+									"key": "query",
+									"value": "christmas",
+									"description": "required value"
+								},
+								{
+									"key": "display",
+									"value": "10"
+								},
+								{
+									"key": "sort",
+									"value": "sim"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "200_Optional_sort_remove",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status test\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded; charset=UTF-8",
+								"type": "text"
+							},
+							{
+								"key": "X-Naver-Client-Id",
+								"value": "slUen2osFZA3taBCw6BZ",
+								"type": "text"
+							},
+							{
+								"key": "X-Naver-Client-Secret",
+								"value": "4XEBgLAnRF",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "https://openapi.naver.com/v1/search/blog.json?query=christmas&display=10&start=1",
+							"protocol": "https",
+							"host": [
+								"openapi",
+								"naver",
+								"com"
+							],
+							"path": [
+								"v1",
+								"search",
+								"blog.json"
+							],
+							"query": [
+								{
+									"key": "query",
+									"value": "christmas",
+									"description": "required value"
+								},
+								{
+									"key": "display",
+									"value": "10"
+								},
+								{
+									"key": "start",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "400 Case",
+			"item": [
+				{
+					"name": "400_SE01_query_blank",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// SE01 : Incorrect query request (잘못된 쿼리요청입니다.)\r",
+									"\r",
+									"pm.test(\"Status Code\", function (){\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"errorCode\", function(){\r",
+									"    pm.expect(pm.response.text()).to.include(\"SE01\"); \r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded; charset=UTF-8",
+								"type": "text"
+							},
+							{
+								"key": "X-Naver-Client-Id",
+								"value": "slUen2osFZA3taBCw6BZ",
+								"type": "text"
+							},
+							{
+								"key": "X-Naver-Client-Secret",
+								"value": "4XEBgLAnRF",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "https://openapi.naver.com/v1/search/blog.json?query=&display=10&start=1&sort=sim",
+							"protocol": "https",
+							"host": [
+								"openapi",
+								"naver",
+								"com"
+							],
+							"path": [
+								"v1",
+								"search",
+								"blog.json"
+							],
+							"query": [
+								{
+									"key": "query",
+									"value": "",
+									"description": "required value"
+								},
+								{
+									"key": "display",
+									"value": "10"
+								},
+								{
+									"key": "start",
+									"value": "1"
+								},
+								{
+									"key": "sort",
+									"value": "sim"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "400_SE02_display_blank",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// SE02 : Invalid display value (부적절한 display 값입니다.)\r",
+									"\r",
+									"pm.test(\"Status Code\", function (){\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"errorCode\", function(){\r",
+									"     pm.expect(pm.response.text()).to.include(\"Invalid display value (부적절한 display 값입니다.)\"); \r",
+									"     pm.expect(pm.response.text()).to.include(\"SE02\"); \r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded; charset=UTF-8",
+								"type": "text"
+							},
+							{
+								"key": "X-Naver-Client-Id",
+								"value": "slUen2osFZA3taBCw6BZ",
+								"type": "text"
+							},
+							{
+								"key": "X-Naver-Client-Secret",
+								"value": "4XEBgLAnRF",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "https://openapi.naver.com/v1/search/blog.json?query=christmas&display=&start=0&sort=sim",
+							"protocol": "https",
+							"host": [
+								"openapi",
+								"naver",
+								"com"
+							],
+							"path": [
+								"v1",
+								"search",
+								"blog.json"
+							],
+							"query": [
+								{
+									"key": "query",
+									"value": "christmas",
+									"description": "required value"
+								},
+								{
+									"key": "display",
+									"value": ""
+								},
+								{
+									"key": "start",
+									"value": "0"
+								},
+								{
+									"key": "sort",
+									"value": "sim"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "400_SE02_display_type",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// SE02 : Invalid display value (부적절한 display 값입니다.)\r",
+									"\r",
+									"pm.test(\"Status Code\", function (){\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"errorCode\", function(){\r",
+									"     pm.expect(pm.response.text()).to.include(\"Invalid display value (부적절한 display 값입니다.)\"); \r",
+									"     pm.expect(pm.response.text()).to.include(\"SE02\"); \r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded; charset=UTF-8",
+								"type": "text"
+							},
+							{
+								"key": "X-Naver-Client-Id",
+								"value": "slUen2osFZA3taBCw6BZ",
+								"type": "text"
+							},
+							{
+								"key": "X-Naver-Client-Secret",
+								"value": "4XEBgLAnRF",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "https://openapi.naver.com/v1/search/blog.json?query=christmas&display=test&start=1&sort=sim",
+							"protocol": "https",
+							"host": [
+								"openapi",
+								"naver",
+								"com"
+							],
+							"path": [
+								"v1",
+								"search",
+								"blog.json"
+							],
+							"query": [
+								{
+									"key": "query",
+									"value": "christmas",
+									"description": "required value"
+								},
+								{
+									"key": "display",
+									"value": "test"
+								},
+								{
+									"key": "start",
+									"value": "1"
+								},
+								{
+									"key": "sort",
+									"value": "sim"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "400_SE02_display_min",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// SE02 : Invalid display value (부적절한 display 값입니다.)\r",
+									"\r",
+									"pm.test(\"Status Code\", function (){\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"errorCode\", function(){\r",
+									"     pm.expect(pm.response.text()).to.include(\"Invalid display value (부적절한 display 값입니다.)\"); \r",
+									"     pm.expect(pm.response.text()).to.include(\"SE02\"); \r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded; charset=UTF-8",
+								"type": "text"
+							},
+							{
+								"key": "X-Naver-Client-Id",
+								"value": "slUen2osFZA3taBCw6BZ",
+								"type": "text"
+							},
+							{
+								"key": "X-Naver-Client-Secret",
+								"value": "4XEBgLAnRF",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "https://openapi.naver.com/v1/search/blog.json?query=christmas&display=0&start=1&sort=sim",
+							"protocol": "https",
+							"host": [
+								"openapi",
+								"naver",
+								"com"
+							],
+							"path": [
+								"v1",
+								"search",
+								"blog.json"
+							],
+							"query": [
+								{
+									"key": "query",
+									"value": "christmas",
+									"description": "required value"
+								},
+								{
+									"key": "display",
+									"value": "0"
+								},
+								{
+									"key": "start",
+									"value": "1"
+								},
+								{
+									"key": "sort",
+									"value": "sim"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "400_SE02_display_max",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// SE02 : Invalid display value (부적절한 display 값입니다.)\r",
+									"\r",
+									"pm.test(\"Status Code\", function (){\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"errorCode\", function(){\r",
+									"     pm.expect(pm.response.text()).to.include(\"Invalid display value (부적절한 display 값입니다.)\"); \r",
+									"     pm.expect(pm.response.text()).to.include(\"SE02\"); \r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded; charset=UTF-8",
+								"type": "text"
+							},
+							{
+								"key": "X-Naver-Client-Id",
+								"value": "slUen2osFZA3taBCw6BZ",
+								"type": "text"
+							},
+							{
+								"key": "X-Naver-Client-Secret",
+								"value": "4XEBgLAnRF",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "https://openapi.naver.com/v1/search/blog.json?query=christmas&display=101&start=1&sort=sim",
+							"protocol": "https",
+							"host": [
+								"openapi",
+								"naver",
+								"com"
+							],
+							"path": [
+								"v1",
+								"search",
+								"blog.json"
+							],
+							"query": [
+								{
+									"key": "query",
+									"value": "christmas",
+									"description": "required value"
+								},
+								{
+									"key": "display",
+									"value": "101"
+								},
+								{
+									"key": "start",
+									"value": "1"
+								},
+								{
+									"key": "sort",
+									"value": "sim"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "400_SE03_start_blank",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// SE03 : Invalid start value (부적절한 start 값입니다.)\r",
+									"\r",
+									"pm.test(\"Status Code\", function (){\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"errorCode\", function(){\r",
+									"    pm.expect(pm.response.text()).to.include(\"Invalid start value (부적절한 start 값입니다.)\"); \r",
+									"    pm.expect(pm.response.text()).to.include(\"SE03\"); \r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded; charset=UTF-8",
+								"type": "text"
+							},
+							{
+								"key": "X-Naver-Client-Id",
+								"value": "slUen2osFZA3taBCw6BZ",
+								"type": "text"
+							},
+							{
+								"key": "X-Naver-Client-Secret",
+								"value": "4XEBgLAnRF",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "https://openapi.naver.com/v1/search/blog.json?query=christmas&display=10&start=&sort=sim",
+							"protocol": "https",
+							"host": [
+								"openapi",
+								"naver",
+								"com"
+							],
+							"path": [
+								"v1",
+								"search",
+								"blog.json"
+							],
+							"query": [
+								{
+									"key": "query",
+									"value": "christmas",
+									"description": "required value"
+								},
+								{
+									"key": "display",
+									"value": "10"
+								},
+								{
+									"key": "start",
+									"value": ""
+								},
+								{
+									"key": "sort",
+									"value": "sim"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "400_SE03_start_type",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// SE03 : Invalid start value (부적절한 start 값입니다.)\r",
+									"\r",
+									"pm.test(\"Status Code\", function (){\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"errorCode\", function(){\r",
+									"    pm.expect(pm.response.text()).to.include(\"Invalid start value (부적절한 start 값입니다.)\"); \r",
+									"    pm.expect(pm.response.text()).to.include(\"SE03\"); \r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded; charset=UTF-8",
+								"type": "text"
+							},
+							{
+								"key": "X-Naver-Client-Id",
+								"value": "slUen2osFZA3taBCw6BZ",
+								"type": "text"
+							},
+							{
+								"key": "X-Naver-Client-Secret",
+								"value": "4XEBgLAnRF",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "https://openapi.naver.com/v1/search/blog.json?query=christmas&display=10&start=test&sort=sim",
+							"protocol": "https",
+							"host": [
+								"openapi",
+								"naver",
+								"com"
+							],
+							"path": [
+								"v1",
+								"search",
+								"blog.json"
+							],
+							"query": [
+								{
+									"key": "query",
+									"value": "christmas",
+									"description": "required value"
+								},
+								{
+									"key": "display",
+									"value": "10"
+								},
+								{
+									"key": "start",
+									"value": "test"
+								},
+								{
+									"key": "sort",
+									"value": "sim"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "400_SE03_start_min",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// SE03 : Invalid start value (부적절한 start 값입니다.)\r",
+									"\r",
+									"pm.test(\"Status Code\", function (){\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"errorCode\", function(){\r",
+									"    pm.expect(pm.response.text()).to.include(\"Invalid start value (부적절한 start 값입니다.)\"); \r",
+									"    pm.expect(pm.response.text()).to.include(\"SE03\"); \r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded; charset=UTF-8",
+								"type": "text"
+							},
+							{
+								"key": "X-Naver-Client-Id",
+								"value": "slUen2osFZA3taBCw6BZ",
+								"type": "text"
+							},
+							{
+								"key": "X-Naver-Client-Secret",
+								"value": "4XEBgLAnRF",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "https://openapi.naver.com/v1/search/blog.json?query=christmas&display=10&start=0&sort=sim",
+							"protocol": "https",
+							"host": [
+								"openapi",
+								"naver",
+								"com"
+							],
+							"path": [
+								"v1",
+								"search",
+								"blog.json"
+							],
+							"query": [
+								{
+									"key": "query",
+									"value": "christmas",
+									"description": "required value"
+								},
+								{
+									"key": "display",
+									"value": "10"
+								},
+								{
+									"key": "start",
+									"value": "0"
+								},
+								{
+									"key": "sort",
+									"value": "sim"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "400_SE03_start_max",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// SE03 : Invalid start value (부적절한 start 값입니다.)\r",
+									"\r",
+									"pm.test(\"Status Code\", function (){\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"errorCode\", function(){\r",
+									"    pm.expect(pm.response.text()).to.include(\"Invalid start value (부적절한 start 값입니다.)\"); \r",
+									"    pm.expect(pm.response.text()).to.include(\"SE03\"); \r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded; charset=UTF-8",
+								"type": "text"
+							},
+							{
+								"key": "X-Naver-Client-Id",
+								"value": "slUen2osFZA3taBCw6BZ",
+								"type": "text"
+							},
+							{
+								"key": "X-Naver-Client-Secret",
+								"value": "4XEBgLAnRF",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "https://openapi.naver.com/v1/search/blog.json?query=christmas&display=10&start=1001&sort=sim",
+							"protocol": "https",
+							"host": [
+								"openapi",
+								"naver",
+								"com"
+							],
+							"path": [
+								"v1",
+								"search",
+								"blog.json"
+							],
+							"query": [
+								{
+									"key": "query",
+									"value": "christmas",
+									"description": "required value"
+								},
+								{
+									"key": "display",
+									"value": "10"
+								},
+								{
+									"key": "start",
+									"value": "1001"
+								},
+								{
+									"key": "sort",
+									"value": "sim"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "400_SE04_sort_blank",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// SE04 : Invalid sort value (부적절한 sort 값입니다.)\r",
+									"\r",
+									"pm.test(\"Status Code\", function (){\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"errorCode\", function(){\r",
+									"    pm.expect(pm.response.text()).to.include(\"Invalid sort value (부적절한 sort값입니다.)\"); \r",
+									"    pm.expect(pm.response.text()).to.include(\"SE04\"); \r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded; charset=UTF-8",
+								"type": "text"
+							},
+							{
+								"key": "X-Naver-Client-Id",
+								"value": "slUen2osFZA3taBCw6BZ",
+								"type": "text"
+							},
+							{
+								"key": "X-Naver-Client-Secret",
+								"value": "4XEBgLAnRF",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "https://openapi.naver.com/v1/search/blog.json?query=christmas&display=10&start=1&sort=",
+							"protocol": "https",
+							"host": [
+								"openapi",
+								"naver",
+								"com"
+							],
+							"path": [
+								"v1",
+								"search",
+								"blog.json"
+							],
+							"query": [
+								{
+									"key": "query",
+									"value": "christmas",
+									"description": "required value"
+								},
+								{
+									"key": "display",
+									"value": "10"
+								},
+								{
+									"key": "start",
+									"value": "1"
+								},
+								{
+									"key": "sort",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "400_SE04_sort_type",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// SE04 : Invalid sort value (부적절한 sort 값입니다.)\r",
+									"\r",
+									"pm.test(\"Status Code\", function (){\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"errorCode\", function(){\r",
+									"    pm.expect(pm.response.text()).to.include(\"Invalid sort value (부적절한 sort값입니다.)\"); \r",
+									"    pm.expect(pm.response.text()).to.include(\"SE04\"); \r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded; charset=UTF-8",
+								"type": "text"
+							},
+							{
+								"key": "X-Naver-Client-Id",
+								"value": "slUen2osFZA3taBCw6BZ",
+								"type": "text"
+							},
+							{
+								"key": "X-Naver-Client-Secret",
+								"value": "4XEBgLAnRF",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "https://openapi.naver.com/v1/search/blog.json?query=christmas&display=10&start=1&sort=1",
+							"protocol": "https",
+							"host": [
+								"openapi",
+								"naver",
+								"com"
+							],
+							"path": [
+								"v1",
+								"search",
+								"blog.json"
+							],
+							"query": [
+								{
+									"key": "query",
+									"value": "christmas",
+									"description": "required value"
+								},
+								{
+									"key": "display",
+									"value": "10"
+								},
+								{
+									"key": "start",
+									"value": "1"
+								},
+								{
+									"key": "sort",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "404_SE05_sort_type Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// SE05 : Invalid search api (존재하지 않는 검색 api 입니다.)\r",
+									"\r",
+									"pm.test(\"Status Code\", function (){\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"errorCode\", function(){\r",
+									"    pm.expect(pm.response.text()).to.include(\"Invalid search api (존재하지 않는 검색 api 입니다.)\"); \r",
+									"    pm.expect(pm.response.text()).to.include(\"SE05\"); \r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded; charset=UTF-8",
+								"type": "text"
+							},
+							{
+								"key": "X-Naver-Client-Id",
+								"value": "slUen2osFZA3taBCw6BZ",
+								"type": "text"
+							},
+							{
+								"key": "X-Naver-Client-Secret",
+								"value": "4XEBgLAnRF",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "https://openapi.naver.com/v1/search/blag.json?query=christmas&display=10&start=1&sort=sim",
+							"protocol": "https",
+							"host": [
+								"openapi",
+								"naver",
+								"com"
+							],
+							"path": [
+								"v1",
+								"search",
+								"blag.json"
+							],
+							"query": [
+								{
+									"key": "query",
+									"value": "christmas"
+								},
+								{
+									"key": "display",
+									"value": "10"
+								},
+								{
+									"key": "start",
+									"value": "1"
+								},
+								{
+									"key": "sort",
+									"value": "sim"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
